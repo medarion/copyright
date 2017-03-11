@@ -61,7 +61,6 @@ copyright -c options.json file1 dir2/*
             help='Number of newlines before/after injected message.')
         parser.add_argument(
             '-l', '--license',
-            action='append',
             choices=sorted(copyright.template.Template.DEFAULT.keys()),
             help='''License.''')
         parser.add_argument(
