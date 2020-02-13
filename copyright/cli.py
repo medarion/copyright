@@ -61,9 +61,7 @@ copyright -c options.json file1 dir2/*
             help='Number of newlines before/after injected message.')
         parser.add_argument(
             '-l', '--license',
-            action='append',
-            choices=sorted(copyright.template.Template.DEFAULT.keys()),
-            help='''License.''')
+            help='''License type.''')
         parser.add_argument(
             '-R', '--no-recurse',
             action="store_true",
@@ -119,6 +117,9 @@ copyright -c options.json file1 dir2/*
             logger.debug('args={0}'.format(self.args))
 
         return self.args
+
+    def error(self, s):
+        self.parser.error(s)
 
 def demo():
     c = Cli()

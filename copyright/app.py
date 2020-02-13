@@ -43,6 +43,11 @@ class App(object):
         if self.config.debug:
             copyright.logger.debug("config=" + repr(self.config))
 
+        license = self.config.license
+        if license and license not in self.config.templates:
+            self.cli.error("License '%s' not found. Possible values are: %r" %
+                           (license, self.config.templates.keys()))
+
         self.langs = copyright.langs()
         walks = copyright.walks(self.config.files,
                                 exclude=self.config.exclude,

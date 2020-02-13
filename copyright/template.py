@@ -6,6 +6,7 @@ def wrap(s, width=72):
 
 class Template:
     DEFAULT = {
+'private': '{short} Copyright (c) {author} {year}.  All rights reserved.',
 'gpl3':
 '''{short}
 Copyright (C) {year} {author}
