@@ -2,7 +2,7 @@ import os
 import unittest
 
 from glob import glob
-from copyright import CLang, Comments, Detector
+from copyright import CLang, GoLang, Comments, Detector
 
 def teardown():
     for f in glob('tmp.*'):
@@ -54,6 +54,46 @@ class TestCLang(unittest.TestCase):
 
     def test_header(self):
         self.assertEqual(13, CLang().header('tmp.comments.c'))
+
+class TestGoLang(unittest.TestCase):
+    EXT = ['go']
+
+    def setUp(self):
+        for x in self.EXT:
+            with open('tmp.empty.' + x, 'w') as f:
+                pass
+
+        with open('tmp.go.0', 'w') as f:
+            f.write('package main');
+
+        with open('tmp.comments.go', 'w') as f:
+            f.write('// foo\n// bar\n/* multi\n * line\n */\n');
+
+    def tearDown(self):
+        teardown()
+
+    def test_comment(self):
+        s = '1\n2'
+        e1 = '/*\n 1\n 2\n*/'
+        e2 = '// 1\n// 2'
+        go = GoLang()
+
+        r = go.comment(s, single=False, pad=1)
+        self.assertEqual(e1, r)
+        r = go.comment(s, single=True, pad=1)
+        self.assertEqual(e2, r)
+
+    def test_detect_ext(self):
+        for x in self.EXT:
+            n = 'tmp.empty.' + x
+            self.assertEqual('go', Detector.detect(n))
+
+    def test_detect_body(self):
+        self.assertEqual('go', Detector.detect('tmp.go.0'))
+
+    def test_header(self):
+        self.assertEqual(13, GoLang().header('tmp.comments.go'))
+
 
 class TestJavaLang(unittest.TestCase):
     def setUp(self):

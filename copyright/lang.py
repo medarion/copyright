@@ -8,6 +8,7 @@ py = ['py']
 sh = 'bash csh ksh pl sh tcsh zsh'.split()
 sql = 'sql psql tsql'.split()
 xml = 'htm html php xml'.split()
+go = ['go']
 
 extensions = {
     'c': c,
@@ -16,7 +17,8 @@ extensions = {
     'py': py,
     'sh': sh,
     'sql': sql,
-    'xml': xml
+    'xml': xml,
+    'go': go
 }
 
 class Comments:
@@ -176,6 +178,14 @@ class CLang(Lang):
         super(CLang, self).__init__('c', extensions['c'], '/*', '*/', '//',
                                     keywords=['#if', '#include', '#pragma', '//', '/\*'])
 
+# NOTE:  The package keyword is underspecified here for golang, as it can use any
+# unicode letters or numbers, and the python 're' engine cannot specify unicode
+# code points.
+class GoLang(Lang):
+    def __init__(self):
+        super(GoLang, self).__init__('go', extensions['go'], '/*', '*/', '//',
+                                    keywords=['^\s*package\s+\w+\s*$', '//', '/\*'])
+
 class JavaLang(Lang):
     def __init__(self):
         super(JavaLang, self).__init__('java', extensions['java'], '/*', '*/', '//',
@@ -206,6 +216,7 @@ class XmlLang(Lang):
 def langs():
     return dict(
         c=CLang(),
+        go=GoLang(),
         java=JavaLang(),
         py=PyLang(),
         sh=ShLang(),
