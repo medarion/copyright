@@ -50,7 +50,8 @@ class TestCLang(unittest.TestCase):
     def test_detect_body(self):
         for x in '0 1 2'.split():
             n = 'tmp.c.' + x
-            self.assertEqual('c', Detector.detect(n))
+            self.assertEqual('c', Detector.detect(n, autodetect=True))
+            self.assertIsNone(Detector.detect(n))
 
     def test_header(self):
         self.assertEqual(13, CLang().header('tmp.comments.c'))
@@ -89,7 +90,8 @@ class TestGoLang(unittest.TestCase):
             self.assertEqual('go', Detector.detect(n))
 
     def test_detect_body(self):
-        self.assertEqual('go', Detector.detect('tmp.go.0'))
+        self.assertEqual('go', Detector.detect('tmp.go.0', autodetect=True))
+        self.assertIsNone(Detector.detect('tmp.go.0'))
 
     def test_header(self):
         self.assertEqual(13, GoLang().header('tmp.comments.go'))
@@ -118,7 +120,8 @@ class TestJavaLang(unittest.TestCase):
     def test_detect_body(self):
         for x in '0 1'.split():
             n = 'tmp.java.' + x
-            self.assertEqual('java', Detector.detect(n))
+            self.assertEqual('java', Detector.detect(n, autodetect=True))
+            self.assertIsNone(Detector.detect(n))
 
 class TestPyLang(unittest.TestCase):
     def setUp(self):
@@ -146,7 +149,8 @@ class TestPyLang(unittest.TestCase):
     def test_detect_body(self):
         for x in '0 1 2'.split():
             n = 'tmp.py.' + x
-            self.assertEqual('py', Detector.detect(n))
+            self.assertEqual('py', Detector.detect(n, autodetect=True))
+            self.assertIsNone(Detector.detect(n))
 
 class TestShLang(unittest.TestCase):
     EXT = 'bash ksh csh tcsh zsh bash'.split()
@@ -182,7 +186,8 @@ class TestShLang(unittest.TestCase):
     def test_detect_body(self):
         for x in '0 1 2 3 4'.split():
             n = 'tmp.sh.' + x
-            self.assertEqual('sh', Detector.detect(n))
+            self.assertEqual('sh', Detector.detect(n, autodetect=True))
+            self.assertIsNone(Detector.detect(n))
 
 class TestXmlLang(unittest.TestCase):
     EXT = 'htm html xml'.split()
@@ -218,7 +223,8 @@ class TestXmlLang(unittest.TestCase):
     def test_detect_body(self):
         for x in '0 1 2 3 4'.split():
             n = 'tmp.xml.' + x
-            self.assertEqual('xml', Detector.detect(n))
+            self.assertEqual('xml', Detector.detect(n, autodetect=True))
+            self.assertIsNone(Detector.detect(n))
 
 class TestComments(unittest.TestCase):
     def setUp(self):

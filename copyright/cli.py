@@ -36,6 +36,11 @@ copyright -c options.json file1 dir2/*
             '-a', '--author',
             help='''Author name(s) to be injected into template. Defaults to username.''')
         parser.add_argument(
+            '-A', '--autodetect',
+            action="store_true",
+            default=False,
+            help='Heuristically detect file type based on first few lines.')
+        parser.add_argument(
             '-b', '--back',
             action="store_true",
             help='''Put license at the end of file. Default is front.''')

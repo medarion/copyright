@@ -60,7 +60,7 @@ class TestApp(unittest.TestCase):
         dir1 = truthdir(tree)
         dir2 = tmpdir(tree)
         self.setup(dir2)
-        temp = '-a Foo -p Bar -P 1 -s App -y 2016 --back --single {d}'
+        temp = '-a Foo -A -p Bar -P 1 -s App -y 2016 --back --single {d}'
         args = temp.format(d=dir2).split()
         App.main(args)
         self.diff_dir(dir1, dir2)
@@ -76,7 +76,7 @@ class TestApp(unittest.TestCase):
         dir1 = truthdir(tree)
         dir2 = tmpdir(tree)
         self.setup(dir2)
-        temp = '''-a Foo -p Bar -P 1 -s App -y 2016 --include *.py,f*.h,script? {d}'''
+        temp = '''-A -a Foo -p Bar -P 1 -s App -y 2016 --include *.py,f*.h,script? {d}'''
         args = temp.format(d=dir2).split()
         App.main(args)
         self.diff_dir(dir1, dir2)
@@ -87,7 +87,7 @@ class TestApp(unittest.TestCase):
         dir2 = tmpdir(tree)
         self.setup(dir2)
         cfg = datadir(tree + '.json')
-        temp = '''-a "Over Ride" -c {cfg} {d}'''
+        temp = '''-A -a "Over Ride" -c {cfg} {d}'''
         args = shlex.split(temp.format(cfg=cfg, d=dir2))
         App.main(args)
         self.diff_dir(dir1, dir2)
@@ -97,7 +97,7 @@ class TestApp(unittest.TestCase):
         dir1 = truthdir(tree)
         dir2 = tmpdir(tree)
         self.setup(dir2)
-        temp = '''-a Foo -s 'Best app.' -p MyApp -y 2016 -R {d}'''
+        temp = '''-A -a Foo -s 'Best app.' -p MyApp -y 2016 -R {d}'''
         args = shlex.split(temp.format(d=dir2))
         App.main(args)
         self.diff_dir(dir1, dir2)

@@ -20,7 +20,7 @@ class App(object):
         return app.run()
 
     def process(self, file):
-        langtype = self.config.lang or copyright.Detector.detect(file)
+        langtype = self.config.lang or copyright.Detector.detect(file, self.config.autodetect)
         if not langtype:
             if self.config.debug:
                 msg = 'Skipping unknown language: {0}\n'.format(file)

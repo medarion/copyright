@@ -41,6 +41,7 @@ class Config:
     def newdict():
         return dict(
             author=os.environ['USER'],
+            autodetect=False,
             back=False,
             config=None,
             debug=False,

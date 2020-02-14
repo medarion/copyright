@@ -142,10 +142,10 @@ class Lang(object):
         return Comments.header(file=file, text=text, start=self.start,
                                stop=self.stop, single=self.single)
 
-    def isa(self, filename):
+    def isa(self, filename, autodetect=False):
         '''Return True if file belongs to lang family.'''
         ext = self.hasext(filename)
-        kw = self.haskeyword(filename)
+        kw = autodetect and self.haskeyword(filename)
         return ext or kw
 
     def strip(self, file=None, text=None):
@@ -227,12 +227,12 @@ class Detector:
     langs = langs()
 
     @staticmethod
-    def detect(filename):
+    def detect(filename, autodetect=False):
         '''Return None or lang family name.'''
         names = list(Detector.langs.keys())
         names.sort()
         for name in names:
-            if Detector.langs[name].isa(filename):
+            if Detector.langs[name].isa(filename, autodetect):
                 return name
         return None
 
