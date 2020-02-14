@@ -22,8 +22,9 @@ class App(object):
     def process(self, file):
         langtype = self.config.lang or copyright.Detector.detect(file)
         if not langtype:
-            msg = 'Skipping unknown language: {0}\n'.format(file)
-            sys.stdout.write(msg)
+            if self.config.debug:
+                msg = 'Skipping unknown language: {0}\n'.format(file)
+                sys.stdout.write(msg)
             return
 
         text = copyright.License(self.config).text
