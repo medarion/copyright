@@ -50,7 +50,7 @@ class Config:
             include=None,
             lang=None,
             license='gpl3',
-            newlines=1,
+            newlines=2,
             no_recurse=False,
             pad=4,
             program=None,

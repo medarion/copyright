@@ -38,7 +38,6 @@ copyright -c options.json file1 dir2/*
         parser.add_argument(
             '-A', '--autodetect',
             action="store_true",
-            default=False,
             help='Heuristically detect file type based on first few lines.')
         parser.add_argument(
             '-b', '--back',
@@ -62,7 +61,7 @@ copyright -c options.json file1 dir2/*
             choices=sorted(copyright.lang.extensions.keys()),
             help='''Force language comment style on files.''')
         parser.add_argument(
-            '-n', '--newlines', type=int, default=2,
+            '-n', '--newlines', type=int,
             help='Number of newlines before/after injected message.')
         parser.add_argument(
             '-l', '--license',
@@ -72,7 +71,7 @@ copyright -c options.json file1 dir2/*
             action="store_true",
             help='Do not recurse into subdirectories.')
         parser.add_argument(
-            '-P', '--pad', type=int, default=4,
+            '-P', '--pad', type=int,
             help='Number of spaces to left-pad each line in license.')
         parser.add_argument(
             '-p', '--program',
