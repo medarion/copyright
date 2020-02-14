@@ -51,6 +51,10 @@ copyright -c options.json file1 dir2/*
             action="store_true",
             help='Print debug messages.')
         parser.add_argument(
+            '-D', '--dry-run',
+            action="store_true",
+            help='Print files that will be changed, but do not make changes.')
+        parser.add_argument(
             '-e', '--exclude',
             help='''Comma delimited list of name patterns to exclude.''')
         parser.add_argument(

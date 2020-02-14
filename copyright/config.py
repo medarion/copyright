@@ -45,6 +45,7 @@ class Config:
             back=False,
             config=None,
             debug=False,
+            dry_run=False,
             exclude=None,
             files=[],
             include=None,
