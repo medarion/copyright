@@ -21,7 +21,7 @@ class Config:
         import copyright
         for key in self.dict.keys():
             v = args.__dict__[key]
-            if v:
+            if v is not None:
                 self.dict[key.replace('-', '_')] = v
 
         self.dict['templates'] = copyright.template.Template.loadf(self.dict['templates'])
