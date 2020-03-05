@@ -1,3 +1,4 @@
+from collections import OrderedDict
 import copyright
 import os
 import re
@@ -214,14 +215,17 @@ class XmlLang(Lang):
                 start='<!--', stop='-->', keywords=keywords)
 
 def langs():
-    return dict(
-        c=CLang(),
-        go=GoLang(),
-        java=JavaLang(),
-        py=PyLang(),
-        sh=ShLang(),
-        sql=SqlLang(),
-        xml=XmlLang())
+    return OrderedDict([
+        ('c', CLang()),
+        ('go', GoLang()),
+        ('java', JavaLang()),
+        ('py', PyLang()),
+        ('sh', ShLang()),
+        # Must check xml BEFORE sql because existing XMl close comment will get
+        # seen as a single-line SQL comment.  Oops.
+        ('xml', XmlLang()),
+        ('sql', SqlLang()),
+    ])
 
 class Detector:
     langs = langs()
@@ -229,10 +233,8 @@ class Detector:
     @staticmethod
     def detect(filename, autodetect=False):
         '''Return None or lang family name.'''
-        names = list(Detector.langs.keys())
-        names.sort()
-        for name in names:
-            if Detector.langs[name].isa(filename, autodetect):
+        for name, lang_instance in Detector.langs.items():
+            if lang_instance.isa(filename, autodetect):
                 return name
         return None
 

@@ -4,4 +4,3 @@
   entry: copyright
   language: python
   types: [text]
-  args: [-S, -q, -c, .copyright.config.json]

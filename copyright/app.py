@@ -25,21 +25,19 @@ class App(object):
             if self.config.debug:
                 msg = 'Skipping unknown language: {0}\n'.format(file)
                 sys.stdout.write(msg)
-            return
+            return 0  # nothing changed
 
         if not self.config.dry_run:
             text = copyright.License(self.config).text
             lang = self.langs[langtype]
             commented = lang.comment(text,
-                                    single=self.config.single,
-                                    pad=self.config.pad)
-            copyright.license.LicensedFile(file,
-                                        lang,
-                                        commented).write(back=self.config.back,
-                                                            newlines=self.config.newlines)
-
+                                     single=self.config.single,
+                                     pad=self.config.pad)
+            lf = copyright.license.LicensedFile(file, lang, commented)
+            changed = lf.write(back=self.config.back, newlines=self.config.newlines)
         if not self.config.quiet:
             sys.stdout.write(file + '\n')
+        return changed
 
     def run(self):
         self.config.load(self.cli)
@@ -58,12 +56,14 @@ class App(object):
                                 regex=self.config.regex,
                                 recurse = not self.config.no_recurse,
                                 debug=self.config.debug)
+        changed = 0
         for walk in walks:
             for file in walk:
                 if self.config.debug:
                     copyright.logger.debug("file=" + file)
-                self.process(file)
-        return 0
+                changed |= self.process(file)
+        # pre-commit wants a tool to exit non-zero if any files were modified.
+        return changed
 
 def main():
     '''Run from commandline.'''

@@ -17,9 +17,11 @@ class LicensedFile:
     def write(self, back=False, newlines=1):
         '''Write text to file.'''
         if not self.file or not self.lic or not os.path.exists(self.file):
-            return
+            return 0  # nothing changed
 
-        text = self.lang.strip(file=self.file)
+        with open(self.file, 'r') as f:
+            orig_text = f.read()
+        text = self.lang.strip(text=orig_text)
         sep = os.linesep * newlines
         if back:
             text = text.rstrip('\r\n') + sep + self.lic
@@ -34,8 +36,15 @@ class LicensedFile:
 
             text = ''.join([head, self.lic, tail])
 
-        with open(self.file, 'w') as f:
-            f.write(text)
+        # Never let an extraneous newline at end-of-file go out
+        if text.endswith('\n\n'):
+            text = text[:-1]
+
+        if text != orig_text:
+            with open(self.file, 'w') as f:
+                f.write(text)
+            return 1  # changed something
+        return 0  # nothing changed
 
 # copyright - Add or replace license boilerplate.
 # Copyright (C) 2016 Remik Ziemlinski
