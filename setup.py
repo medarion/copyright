@@ -21,7 +21,9 @@ setup(
     author='Remik Ziemlinski',
     author_email='first.last@gmail.com',
     license='GPLv3',
-    scripts=['scripts/copyright'],
     url='https://www.github.com/rsmz/copyright',
     download_url='https://github.com/rsmz/copyright/archive/copyright-1.0.1.0.tar.gz',
+    entry_points={
+        'console_scripts': ['copyright=copyright.app:main'],
+    },
 )

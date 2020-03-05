@@ -106,7 +106,8 @@ copyright -c options.json file1 dir2/*
             '-y', '--year',
             help='''Year(s) to be injected into template. Defaults to current.''')
 
-        parser.add_argument('files', help='List of files to process.')
+        parser.add_argument('files', nargs='*',
+                            help='List of files to process.')
 
         return parser
 
