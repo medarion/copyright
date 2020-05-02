@@ -55,7 +55,8 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.'''
         if filename:
             with open(filename) as f:
                 js = json.load(f)
-                result.update(js)
+                for k, v in js:
+                    result[k.encode('utf8')] = v.encode('utf8')
         return result
 
 # copyright - Add or replace license boilerplate.
