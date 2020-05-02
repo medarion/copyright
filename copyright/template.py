@@ -55,7 +55,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.'''
         if filename:
             with open(filename) as f:
                 js = json.load(f)
-                for k, v in js:
+                for k, v in js.items():
                     result[k.encode('utf8')] = v.encode('utf8')
         return result
 
